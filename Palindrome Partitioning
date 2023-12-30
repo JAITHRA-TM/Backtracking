@@ -1,0 +1,31 @@
+#include <bits/stdc++.h> 
+bool isPal(string &s, int start, int end){
+      while(start < end){
+          if(s[start++] != s[end--]){
+              return false;
+          }
+      }
+      return true;
+}
+void helper(string &s, int idx, vector<string> &path, vector<vector<string>> &res){
+    if(idx == s.length()){
+        res.push_back(path);
+        return;
+    }
+    for(int i=idx; i<s.length(); i++){
+        if(isPal(s, idx, i)){
+            path.push_back(s.substr(idx, i-idx+1));
+            helper(s, i+1, path, res);
+            path.pop_back();
+        }
+    }
+
+}
+vector<vector<string>> partition(string &s) 
+{
+    // Write your code here.
+    vector<vector<string>> res;
+    vector<string> path;
+    helper(s, 0, path, res);
+    return res;
+}
